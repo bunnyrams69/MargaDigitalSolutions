@@ -449,6 +449,27 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-amber);
 }
 
+@media (max-width: 768px) {
+  .footer-info {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .footer-info a {
+    padding: 0.8rem 1.5rem;
+    min-height: 44px; /* Minimum mobile touch target */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 290px;
+    box-sizing: border-box;
+  }
+}
+
 .footer-icon-svg {
   width: 18px;
   height: 18px;

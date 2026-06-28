@@ -758,10 +758,36 @@
     aspect-ratio: 16/9;
   }
   .cat-clothing .description-block {
-    margin-left: -5%;
-    width: 110vw;
+    margin-left: 0;
+    width: 100%;
+    padding: 4rem 1.5rem;
+    box-sizing: border-box;
+  }
+  .cat-corporate .description-block {
+    padding: 3rem 1.5rem;
+    box-sizing: border-box;
   }
   .video-modal.vertical-mode .video-modal-container {
     max-height: 75vh;
   }
 }
+
+@media (max-width: 480px) {
+  .cat-hero {
+    height: 50vh;
+    padding-bottom: 8vh;
+  }
+  .back-btn-container {
+    top: 5rem;
+    left: 1rem;
+  }
+  .back-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .cat-hero-title {
+    font-size: 1.8rem !important;
+    letter-spacing: 0.1em !important;
+  }
+}
+

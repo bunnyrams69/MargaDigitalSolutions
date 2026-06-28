@@ -23,6 +23,10 @@ function initBanyanTreeAnimation() {
 
   if (!treeSvg || !treeSection || !treeStage) return;
 
+  // Exit early on mobile viewports to prevent GSAP pinning and scroll-locking
+  const isMobile = window.innerWidth < 768;
+  if (isMobile) return;
+
   // Setup stroke-dasharray and stroke-dashoffset for all animated paths
   const animatedPaths = treeSvg.querySelectorAll(".draw-path");
   animatedPaths.forEach(path => {
