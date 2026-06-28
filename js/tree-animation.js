@@ -23,9 +23,12 @@ function initBanyanTreeAnimation() {
 
   if (!treeSvg || !treeSection || !treeStage) return;
 
-  // Exit early on mobile viewports to prevent GSAP pinning and scroll-locking
+  // Exit early and run mobile reveal animation on mobile viewports to prevent GSAP pinning and scroll-locking
   const isMobile = window.innerWidth < 768;
-  if (isMobile) return;
+  if (isMobile) {
+    initMobileTreeAnimation(treeSvg, animatedPaths);
+    return;
+  }
 
   // Setup stroke-dasharray and stroke-dashoffset for all animated paths
   const animatedPaths = treeSvg.querySelectorAll(".draw-path");
@@ -162,3 +165,62 @@ function initAmbientParticles() {
     container.appendChild(particle);
   }
 }
+
+/* --------------------------------------------------------------------------
+   3. Mobile-Specific Reveal Animation (Triggered once on Scroll Enter)
+   -------------------------------------------------------------------------- */
+function initMobileTreeAnimation(treeSvg, animatedPaths) {
+  // Setup stroke-dasharray and stroke-dashoffset for all animated paths on mobile
+  animatedPaths.forEach(path => {
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+  });
+
+  // Set initial mobile states for leaves and category buttons
+  gsap.set(".leaf-cluster", { scale: 0, opacity: 0, transformOrigin: "50% 50%" });
+  gsap.set(".mobile-btn", { scale: 0.7, opacity: 0, transformOrigin: "50% 50%" });
+
+  // Register GSAP ScrollTrigger plugin
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Create the master timeline triggered on scroll enter (once)
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#tree-section",
+      start: "top 75%", // Triggers when top of tree section is 75% down the viewport
+      once: true // Plays once and remains in the final animated state
+    }
+  });
+
+  // 1. Trunk draws (Time: 0 -> 1.0)
+  tl.to("#trunk", { strokeDashoffset: 0, duration: 1.0, ease: "power1.inOut" });
+
+  // 2. Aerial roots drop (Time: 0.6 -> 1.2)
+  const aerialRoots = treeSvg.querySelectorAll(".aerial-root");
+  if (aerialRoots.length > 0) {
+    tl.to(aerialRoots, { strokeDashoffset: 0, duration: 0.6, stagger: 0.1, ease: "power1.out" }, "-=0.4");
+  }
+
+  // 3. Branches grow pair-by-pair (left/right staggered)
+  // High Branches: Restaurants & Gruhapravesh
+  tl.to("#branch-left-high .draw-path, #branch-right-high .draw-path", { strokeDashoffset: 0, duration: 0.8, ease: "power1.inOut" }, "-=0.2");
+  tl.to("#leaves-left-high .leaf-cluster, #leaves-right-high .leaf-cluster", { opacity: 1, scale: 1, duration: 0.4, stagger: 0.03, ease: "back.out(1.2)" }, "-=0.4");
+  tl.to(".btn-restaurants, .btn-gruhapravesh", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, "-=0.2");
+
+  // Mid Branches: Clothing & Resorts
+  tl.to("#branch-left-mid .draw-path, #branch-right-mid .draw-path", { strokeDashoffset: 0, duration: 0.8, ease: "power1.inOut" }, "-=0.3");
+  tl.to("#leaves-left-mid .leaf-cluster, #leaves-right-mid .leaf-cluster", { opacity: 1, scale: 1, duration: 0.4, stagger: 0.03, ease: "back.out(1.2)" }, "-=0.4");
+  tl.to(".btn-clothing, .btn-resorts", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, "-=0.2");
+
+  // Low Branches: Gym & Pre School
+  tl.to("#branch-left-low .draw-path, #branch-right-low .draw-path", { strokeDashoffset: 0, duration: 0.8, ease: "power1.inOut" }, "-=0.3");
+  tl.to("#leaves-left-low .leaf-cluster, #leaves-right-low .leaf-cluster", { opacity: 1, scale: 1, duration: 0.4, stagger: 0.03, ease: "back.out(1.2)" }, "-=0.4");
+  tl.to(".btn-gym, .btn-preschool", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, "-=0.2");
+
+  // Top Center / Crown Branch: Corporate Shoots
+  tl.to("#branch-top-center .draw-path", { strokeDashoffset: 0, duration: 0.8, ease: "power1.inOut" }, "-=0.3");
+  tl.to("#leaves-top-center .leaf-cluster", { opacity: 1, scale: 1, duration: 0.4, stagger: 0.03, ease: "back.out(1.2)" }, "-=0.4");
+  tl.to(".btn-corporate", { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, "-=0.2");
+}
+

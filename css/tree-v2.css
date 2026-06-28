@@ -264,19 +264,6 @@
     display: block;
   }
 
-  /* Force tree vector elements to be fully visible (drawn) statically on mobile */
-  .draw-path {
-    stroke-dashoffset: 0 !important;
-    transition: none !important;
-    opacity: 1 !important;
-  }
-
-  .leaf-cluster {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
   /* Hide default SVG text and shapes */
   .category-label-group {
     display: none !important;
