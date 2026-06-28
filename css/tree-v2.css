@@ -238,6 +238,12 @@
     align-items: center;
   }
 
+  /* Disable the 20vh gradient blend masks on mobile to remove the empty black bars */
+  #tree-stage::before,
+  #tree-stage::after {
+    display: none !important;
+  }
+
   .tree-svg-container {
     position: relative;
     width: 100%;
