@@ -242,7 +242,7 @@
     position: relative;
     width: 100%;
     max-width: 680px;
-    min-height: 420px; /* Safety margin: ensures the tree visual never shrinks too small */
+    min-height: 480px; /* Increased from 420px to scale visual and separate buttons vertically */
     margin: 0 auto;
     padding: 0 0.5rem;
     display: flex;
@@ -293,7 +293,7 @@
     position: absolute;
     transform: translate(-50%, -50%);
     pointer-events: auto;
-    padding: 0.65rem 0.95rem;
+    padding: 0.6rem 0.9rem;
     background-color: #150d09; /* Warm dark bark brown fill */
     border: 1px solid var(--color-amber-soft);
     border-radius: var(--radius-pill, 50px);
@@ -321,40 +321,40 @@
     box-shadow: 0 2px 10px rgba(196, 137, 42, 0.3);
   }
 
-  /* Exact branch placements mapping viewBox coordinates (1200x900) */
+  /* Fine-tuned branch placements matching branch tips and preventing overlaps */
   .btn-corporate {
     left: 50%;
-    top: 13.3%;
+    top: 15%; /* Shifted down slightly to clear header and side buttons */
   }
 
   .btn-restaurants {
-    left: 17%;
-    top: 24.4%;
+    left: 20%; /* Shifted inward to prevent border clashing */
+    top: 28%; /* Aligned with branch tip */
   }
 
   .btn-clothing {
-    left: 13.3%;
-    top: 53.3%;
+    left: 17%; /* Shifted inward */
+    top: 52%;
   }
 
   .btn-gym {
-    left: 15%;
-    top: 77.8%;
+    left: 20%; /* Shifted inward */
+    top: 76%;
   }
 
   .btn-gruhapravesh {
-    left: 83%;
-    top: 24.4%;
+    left: 80%; /* Shifted inward */
+    top: 28%; /* Aligned with branch tip */
   }
 
   .btn-resorts {
-    left: 86.7%;
-    top: 53.3%;
+    left: 83%; /* Shifted inward */
+    top: 52%;
   }
 
   .btn-preschool {
-    left: 85%;
-    top: 77.8%;
+    left: 80%; /* Shifted inward */
+    top: 76%;
   }
 }
 
