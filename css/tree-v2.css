@@ -225,7 +225,7 @@
 @media (max-width: 768px) {
   #tree-section {
     height: auto !important;
-    padding: 6rem 0 4rem;
+    padding: 3rem 0 0 !important; /* Reduced padding and removed bottom padding to tighten separation */
     background-color: var(--color-void);
   }
 
@@ -242,7 +242,7 @@
     position: relative;
     width: 100%;
     max-width: 680px;
-    min-height: 480px; /* Increased from 420px to scale visual and separate buttons vertically */
+    min-height: 440px; /* Reduced from 480px to decrease empty vertical spacing while keeping button layout safe */
     margin: 0 auto;
     padding: 0 0.5rem;
     display: flex;
@@ -356,6 +356,12 @@
   .btn-preschool {
     left: 80%; /* Shifted inward */
     top: 76%;
+  }
+
+  /* Override the top padding of the Our Story teaser section on mobile to prevent excessive empty space */
+  .about-teaser-section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 4.5rem !important;
   }
 }
 
