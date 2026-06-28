@@ -324,12 +324,13 @@
   /* Fine-tuned branch placements matching branch tips and preventing overlaps */
   .btn-corporate {
     left: 50%;
-    top: 15%; /* Shifted down slightly to clear header and side buttons */
+    top: 8%; /* Shifted up to the top crown branch to clear side buttons */
+    padding: 0.5rem 0.75rem; /* Slightly more compact padding for the long title */
   }
 
   .btn-restaurants {
-    left: 20%; /* Shifted inward to prevent border clashing */
-    top: 28%; /* Aligned with branch tip */
+    left: 18%; /* Adjusted inward */
+    top: 32%; /* Shifted down to clear corporate shoots */
   }
 
   .btn-clothing {
@@ -343,8 +344,8 @@
   }
 
   .btn-gruhapravesh {
-    left: 80%; /* Shifted inward */
-    top: 28%; /* Aligned with branch tip */
+    left: 82%; /* Adjusted inward */
+    top: 32%; /* Shifted down to clear corporate shoots */
   }
 
   .btn-resorts {
