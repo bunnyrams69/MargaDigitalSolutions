@@ -40,9 +40,8 @@ function initBanyanTreeAnimation() {
   // Set initial state for category label groups using GSAP (scales exactly around center coordinate 50% 50%)
   gsap.set(".category-label-group", { scale: 0.5, transformOrigin: "50% 50%", opacity: 0 });
 
-  // Calculate dynamic scroll distance based on device height
-  const isMobile = window.innerWidth < 768;
-  const pinDuration = isMobile ? "350%" : "600%"; // Matches 450vh and 700vh total heights
+  // Calculate dynamic scroll distance based on device height (desktop defaults to 600%)
+  const pinDuration = "600%";
 
   // Register GSAP ScrollTrigger plugin
   gsap.registerPlugin(ScrollTrigger);
