@@ -23,15 +23,14 @@ function initBanyanTreeAnimation() {
 
   if (!treeSvg || !treeSection || !treeStage) return;
 
+  const animatedPaths = treeSvg.querySelectorAll(".draw-path");
+
   // Exit early and run mobile reveal animation on mobile viewports to prevent GSAP pinning and scroll-locking
   const isMobile = window.innerWidth < 768;
   if (isMobile) {
     initMobileTreeAnimation(treeSvg, animatedPaths);
     return;
   }
-
-  // Setup stroke-dasharray and stroke-dashoffset for all animated paths
-  const animatedPaths = treeSvg.querySelectorAll(".draw-path");
   animatedPaths.forEach(path => {
     const length = path.getTotalLength();
     path.style.strokeDasharray = length;
