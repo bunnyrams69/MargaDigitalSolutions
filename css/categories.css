@@ -1,0 +1,767 @@
+/* ==========================================================================
+   MARGA DIGITAL SOLUTIONS — CATEGORY PAGE STYLES (categories.css)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Category Base & General Layout
+   -------------------------------------------------------------------------- */
+.category-page {
+  background-color: var(--page-bg, var(--color-void));
+  color: var(--page-text, var(--color-parchment));
+  min-height: 100vh;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Category Hero */
+.cat-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 5%;
+  overflow: hidden;
+  background-color: var(--page-bg);
+}
+
+.cat-hero-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--page-accent);
+  margin-bottom: 1.5rem;
+}
+
+.cat-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+  font-weight: 700;
+  color: var(--page-text);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.cat-hero-sub {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--page-accent);
+  max-width: 600px;
+  opacity: 0.85;
+}
+
+/* Back Button */
+.back-btn-container {
+  position: absolute;
+  top: 7rem;
+  left: 5%;
+  z-index: 10;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--page-text);
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.back-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  transition: transform 0.3s ease;
+}
+
+.back-btn:hover {
+  opacity: 1;
+}
+
+.back-btn:hover svg {
+  transform: translateX(-5px);
+}
+
+/* --------------------------------------------------------------------------
+   2. Work Gallery & Video Cards
+   -------------------------------------------------------------------------- */
+.gallery-section {
+  padding: 4rem 5% 6rem 5%;
+  background-color: var(--page-bg);
+}
+
+.gallery-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  margin-bottom: 3.5rem;
+  color: var(--page-text);
+}
+
+/* Default 3-Column Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-content);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Video Card Base */
+.video-card {
+  position: relative;
+  background-color: var(--page-surface);
+  border-radius: var(--card-radius, var(--radius-card));
+  overflow: hidden;
+  aspect-ratio: 16/9; /* Default landscape */
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Lazy Loaded Video Elements inside Card */
+.video-card-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  transition: opacity 0.4s ease, transform 0.6s ease;
+}
+
+/* Card Overlays */
+.video-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+.video-card-title {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin-top: 0.5rem;
+}
+
+.video-card-category {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--page-accent);
+}
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 56px;
+  height: 56px;
+  color: var(--page-accent);
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  z-index: 3;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, background-color 0.3s ease;
+  pointer-events: none; /* Let clicks pass to the card */
+}
+
+.video-play-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Hover States on Cards */
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+.video-card:hover .video-card-media {
+  opacity: 0.7;
+  transform: scale(1.05);
+}
+
+.video-card:hover .video-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 1;
+  background-color: rgba(0,0,0,0.2);
+  color: var(--page-accent-hover, var(--page-accent));
+}
+
+/* Description Block */
+.description-block {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem 1.5rem;
+  text-align: center;
+}
+
+.desc-text {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  opacity: 0.8;
+  margin-bottom: 2.5rem;
+}
+
+.desc-cta-btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: 1.5px solid var(--page-accent);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--page-accent);
+  transition: all 0.3s ease;
+}
+
+.desc-cta-btn:hover {
+  background-color: var(--page-accent);
+  color: var(--page-bg);
+}
+
+/* --------------------------------------------------------------------------
+   3. Individual Category Custom Overrides
+   -------------------------------------------------------------------------- */
+
+/* RESTAURANTS — Warm, moody, candlelit */
+.cat-restaurants {
+  --page-bg:      #130707;   /* Deep wine-black */
+  --page-surface: #1E0D0D;
+  --page-accent:  #D4A853;   /* Warm gold */
+  --page-accent-hover: #EAD08C;
+  --page-text:    #F2E0C8;   /* Warm parchment */
+  --footer-bg:    var(--page-bg);
+}
+.cat-restaurants .video-card {
+  border-bottom: 1.5px solid rgba(212, 168, 83, 0.2);
+}
+.cat-restaurants .video-card:hover {
+  box-shadow: 0 8px 40px rgba(212, 168, 83, 0.15);
+}
+
+/* CLOTHING — Editorial, fashion-forward, light background */
+.cat-clothing {
+  --page-bg:      #F5F0E8;   /* Off-white editorial paper */
+  --page-surface: #EDEADF;
+  --page-accent:  #1A1A1A;   /* Near black */
+  --page-accent2: #8B6F4E;   /* Warm brown secondary */
+  --page-text:    #1A1A1A;
+  --footer-bg:    #1A1A1A;   /* Matches the dark description block at the bottom */
+}
+.cat-clothing h1, .cat-clothing h2, .cat-clothing h3, .cat-clothing .back-btn, .cat-clothing .cat-hero-title, .cat-clothing .cat-hero-sub {
+  color: var(--page-text);
+}
+.cat-clothing .cat-hero {
+  align-items: flex-start;
+  text-align: left;
+  height: 85vh;
+  justify-content: flex-end;
+  padding-bottom: 10vh;
+}
+.cat-clothing .cat-hero-watermark {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  font-family: var(--font-quote);
+  font-size: clamp(6rem, 15vw, 16rem);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--page-text);
+  opacity: 0.08;
+  line-height: 0.8;
+  pointer-events: none;
+}
+.cat-clothing .cat-hero-title {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  position: relative;
+  z-index: 2;
+}
+.cat-clothing .cat-hero-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 2px;
+  background-color: var(--page-accent2);
+  margin-top: 1rem;
+}
+.cat-clothing .cat-hero-sub {
+  color: var(--page-accent2);
+}
+.cat-clothing .back-btn {
+  color: var(--page-accent2);
+}
+/* Editorial layout: 1st card full width, next 2 half width */
+.cat-clothing .gallery-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.cat-clothing .video-card:first-child {
+  grid-column: span 2;
+  aspect-ratio: 21/9;
+}
+.cat-clothing .video-card {
+  border-radius: 0;
+  border: 1px solid rgba(26,26,26,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.cat-clothing .video-card:hover {
+  border: 2px solid var(--page-accent2);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.cat-clothing .video-card-title {
+  color: #FFFFFF; /* Ensure overlay text stands out */
+}
+.cat-clothing .description-block {
+  background-color: #1A1A1A;
+  color: #F5F0E8;
+  max-width: 100%;
+  width: 100vw;
+  margin-left: calc(-5vw - 1px);
+  padding: 6rem 5%;
+}
+.cat-clothing .desc-text {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-size: 1.5rem;
+}
+.cat-clothing .desc-cta-btn {
+  border-color: var(--page-bg);
+  color: var(--page-bg);
+}
+.cat-clothing .desc-cta-btn:hover {
+  background-color: var(--page-bg);
+  color: var(--page-accent);
+}
+
+/* GYM — Aggressive, high-energy black-orange */
+.cat-gym {
+  --page-bg:      #080808;   /* Near pure black */
+  --page-surface: #101010;
+  --page-accent:  #E84A2F;   /* Aggressive red-orange */
+  --page-accent-hover: #FF664C;
+  --page-text:    #FFFFFF;
+  --footer-bg:    var(--page-surface); /* Matches the description block background */
+}
+/* Anton font for gym only */
+.cat-gym .cat-hero-title, .cat-gym .gallery-title {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-style: normal;
+  line-height: 0.9;
+}
+.cat-gym .cat-hero-title {
+  position: relative;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+}
+.cat-gym .gym-diagonal-stripe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  width: 100%;
+  height: 150px;
+  background-color: var(--page-accent);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 1;
+}
+.cat-gym .cat-hero-title, .cat-gym .cat-hero-sub {
+  position: relative;
+  z-index: 2;
+}
+.cat-gym .video-card {
+  aspect-ratio: 9/16; /* Vertical reels */
+  border-radius: 0;
+  border: 1px solid rgba(232, 74, 47, 0.3);
+}
+.cat-gym .video-card:hover {
+  box-shadow: 0 0 30px rgba(232, 74, 47, 0.25);
+  border-color: var(--page-accent);
+}
+.cat-gym .description-block {
+  background-color: var(--page-surface);
+  border-top: 1.5px solid var(--page-accent);
+  border-bottom: 1.5px solid var(--page-accent);
+  padding: 4rem 1.5rem;
+}
+.cat-gym .desc-text {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  text-transform: uppercase;
+  color: var(--page-text);
+  letter-spacing: 0.05em;
+}
+
+/* GRUHAPRAVESH — Sacred orange & kumkum red */
+.cat-gruhapravesh {
+  --page-bg:      #1A0E00;   /* Deep warm night */
+  --page-surface: #241305;
+  --page-accent:  #F5A623;   /* Marigold orange */
+  --page-accent-hover: #FFC058;
+  --page-accent2: #C41E3A;   /* Kumkum red */
+  --page-text:    #FAF0DC;   /* Warm cream */
+  --footer-bg:    var(--page-bg);
+}
+.cat-gruhapravesh .cat-hero-title {
+  font-style: italic;
+}
+/* Corner mandala ornaments */
+.cat-gruhapravesh .mandala-corner {
+  position: absolute;
+  width: clamp(60px, 12vw, 150px);
+  height: clamp(60px, 12vw, 150px);
+  stroke: var(--page-accent);
+  opacity: 0.4;
+  pointer-events: none;
+}
+.cat-gruhapravesh .mandala-top-left     { top: 2rem; left: 2rem; }
+.cat-gruhapravesh .mandala-top-right    { top: 2rem; right: 2rem; transform: scaleX(-1); }
+.cat-gruhapravesh .mandala-bottom-left  { bottom: 2rem; left: 2rem; transform: scaleY(-1); }
+.cat-gruhapravesh .mandala-bottom-right { bottom: 2rem; right: 2rem; transform: scale(-1); }
+
+.cat-gruhapravesh .divider-mandala {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  width: 100%;
+  justify-content: center;
+  color: var(--page-accent);
+}
+.cat-gruhapravesh .divider-line {
+  width: 60px;
+  height: 1px;
+  background-color: var(--page-accent);
+  opacity: 0.5;
+}
+.cat-gruhapravesh .video-card {
+  border: 1.5px solid rgba(245, 166, 35, 0.4);
+}
+.cat-gruhapravesh .video-card::after {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 1px dashed rgba(245, 166, 35, 0.2);
+  pointer-events: none;
+  z-index: 1;
+}
+.cat-gruhapravesh .video-card:hover {
+  box-shadow: 0 0 35px rgba(245, 166, 35, 0.15);
+}
+.cat-gruhapravesh .desc-text {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--page-text);
+}
+
+/* RESORTS — Sandy gold & water teal */
+.cat-resorts {
+  --page-bg:      #060C10;   /* Deep ocean night */
+  --page-surface: #091419;
+  --page-accent:  #BFA980;   /* Sandy gold */
+  --page-accent-hover: #D8C7A7;
+  --page-accent2: #4ABDC8;   /* Teal water */
+  --page-text:    #EDE8E0;   /* Soft sand white */
+  --footer-bg:    var(--page-bg);
+}
+.cat-resorts .cat-hero {
+  background: linear-gradient(135deg, #060c10 0%, #0a1a20 100%);
+}
+.cat-resorts .cat-hero-title {
+  font-family: var(--font-quote);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+.cat-resorts .divider-teal {
+  width: 60px;
+  height: 1px;
+  background-color: var(--page-accent2);
+  margin: 1.5rem auto;
+}
+.cat-resorts .video-card {
+  aspect-ratio: 16/9;
+  /* Cinematic letterbox styling */
+  border-top: 8px solid #000;
+  border-bottom: 8px solid #000;
+}
+.cat-resorts .video-card:hover {
+  box-shadow: 0 0 40px rgba(74, 189, 200, 0.12);
+}
+.cat-resorts .desc-text {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+/* PRE SCHOOL — Playful rounded, pastel theme */
+.cat-preschool {
+  --page-bg:      #FFFBF2;   /* Warm white */
+  --page-surface: #FFF5E0;
+  --page-accent:  #FF6B6B;   /* Coral red */
+  --page-accent-hover: #FF8585;
+  --page-accent2: #4ECDC4;   /* Teal */
+  --page-accent3: #FFD93D;   /* Sunny yellow */
+  --page-text:    #2D2D2D;   /* Soft dark */
+  --footer-bg:    var(--page-bg);
+}
+.cat-preschool h1, .cat-preschool h2, .cat-preschool h3, .cat-preschool .back-btn, .cat-preschool .desc-text {
+  font-family: 'Nunito', sans-serif;
+  color: var(--page-text);
+}
+.cat-preschool .cat-hero-label {
+  color: var(--page-accent2);
+}
+.cat-preschool .cat-hero-title {
+  font-weight: 800;
+}
+.cat-preschool .bounce-letter {
+  display: inline-block;
+}
+.cat-preschool .video-card {
+  border-radius: 20px;
+  border: none;
+  background-color: var(--page-surface);
+}
+/* Alternating soft tints for preschool cards */
+.cat-preschool .video-card:nth-child(3n+1) { background-color: #FFEAEA; }
+.cat-preschool .video-card:nth-child(3n+2) { background-color: #E8F8F7; }
+.cat-preschool .video-card:nth-child(3n+3) { background-color: #FFFCE0; }
+
+.cat-preschool .video-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+.cat-preschool .video-play-btn {
+  background-color: var(--page-accent);
+  color: #FFFFFF;
+}
+.cat-preschool .video-card-title {
+  color: var(--page-text);
+}
+.cat-preschool .video-card-overlay {
+  background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 100%);
+}
+.cat-preschool .video-card-title, .cat-preschool .video-card-category {
+  color: var(--page-text);
+}
+.cat-preschool .video-card-category {
+  color: var(--page-accent2);
+}
+/* Star particles floaters styles */
+.star-floater {
+  position: absolute;
+  font-size: 24px;
+  pointer-events: none;
+  opacity: 0.6;
+  user-select: none;
+}
+.star-floater.coral { color: var(--page-accent); }
+.star-floater.teal  { color: var(--page-accent2); }
+.star-floater.yellow{ color: var(--page-accent3); }
+
+@keyframes floatStar {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-15px) rotate(180deg); }
+  100% { transform: translateY(0px) rotate(360deg); }
+}
+
+/* CORPORATE — Navy authority boardroom */
+.cat-corporate {
+  --page-bg:      #FAFAFA;   /* Clean white */
+  --page-surface: #FFFFFF;
+  --page-accent:  #1A3A5C;   /* Navy authority */
+  --page-accent-hover: #295585;
+  --page-accent2: #C4A84A;   /* Corporate gold */
+  --page-text:    #1C1C1C;
+  --footer-bg:    var(--page-bg);
+}
+.cat-corporate h1, .cat-corporate h2, .cat-corporate h3, .cat-corporate .back-btn, .cat-corporate .cat-hero-title, .cat-corporate .cat-hero-sub {
+  color: var(--page-text);
+}
+.cat-corporate .cat-hero {
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 10%;
+  border-left: 6px solid var(--page-accent);
+  justify-content: flex-end;
+  padding-bottom: 12vh;
+}
+.cat-corporate .video-card {
+  border: 1px solid rgba(26, 58, 92, 0.15);
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+.cat-corporate .video-card-overlay {
+  background: linear-gradient(to top, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0) 100%);
+}
+.cat-corporate .video-card-title {
+  color: var(--page-text);
+}
+.cat-corporate .video-card-category {
+  color: var(--page-accent);
+}
+.cat-corporate .video-card:hover {
+  border-color: var(--page-accent);
+  box-shadow: 0 8px 25px rgba(26, 58, 92, 0.12);
+  transform: translateY(-4px);
+}
+.cat-corporate .description-block {
+  text-align: left;
+  border-left: 3px solid var(--page-accent2);
+  padding: 3rem 0 5rem 3rem;
+  max-width: 800px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Fullscreen Video Lightbox (Modal)
+   -------------------------------------------------------------------------- */
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 100000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.video-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.video-modal-container {
+  position: relative;
+  width: 90%;
+  max-width: 1100px;
+  aspect-ratio: 16/9;
+  border-radius: var(--radius-modal);
+  overflow: hidden;
+  box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.video-modal.active .video-modal-container {
+  transform: scale(1);
+}
+
+/* For vertical gym videos in modal */
+.video-modal.vertical-mode .video-modal-container {
+  max-width: 450px;
+  aspect-ratio: 9/16;
+  max-height: 85vh;
+}
+
+.video-modal-player {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: block;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 2rem;
+  right: 5%;
+  color: #FFFFFF;
+  opacity: 0.7;
+  width: 36px;
+  height: 36px;
+  z-index: 100001;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.video-modal-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.video-modal-close svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   5. Responsive Overrides
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cat-clothing .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cat-hero {
+    height: 60vh;
+  }
+  .back-btn-container {
+    top: 5.5rem;
+  }
+  .gallery-grid, .cat-clothing .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .cat-clothing .video-card:first-child {
+    grid-column: span 1;
+    aspect-ratio: 16/9;
+  }
+  .cat-clothing .description-block {
+    margin-left: -5%;
+    width: 110vw;
+  }
+  .video-modal.vertical-mode .video-modal-container {
+    max-height: 75vh;
+  }
+}

@@ -1,0 +1,48 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+/dist
+/out
+
+# Misc
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints
+
+# Raw reference video folders (permanent ignores)
+/CLOTHING/
+/COPARATE SHOOTS/
+/GRUHAPRAVESH/
+/GYM/
+/PRE SCHOOL/
+/RESSORTS/
+/RESTAURANTS/
+
+# Compressed portfolio videos (temporarily ignored for code-only push)
+/assets/videos/

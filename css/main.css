@@ -1,0 +1,545 @@
+/* ==========================================================================
+   MARGA DIGITAL SOLUTIONS — GLOBAL STYLES (main.css)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design System & CSS Variables
+   -------------------------------------------------------------------------- */
+:root {
+  /* Colors */
+  --color-void:       #0D0805;   /* Deepest background, almost black-brown */
+  --color-bark:       #1C0F07;   /* Primary dark background */
+  --color-earth:      #2D1A0E;   /* Elevated surface / cards */
+  --color-wood:       #6B3E26;   /* Tree trunk & branch stroke */
+  --color-amber:      #C4892A;   /* Accent — gold, glows, highlights */
+  --color-amber-soft: #E8B96A;   /* Hover states, button text */
+  --color-sage:       #4A5C30;   /* Leaf color, nature accent */
+  --color-parchment:  #F2E8D5;   /* Light body text, cards */
+  --color-cream:      #FAF6EE;   /* Near-white for hero text */
+  --color-mist:       rgba(244, 232, 205, 0.08); /* Ghost card backgrounds */
+
+  /* Footer Seamless Background */
+  --footer-bg:        var(--color-bark);
+
+  /* Spacing & Radii */
+  --radius-pill: 50px;
+  --radius-card: 12px;
+  --radius-modal: 16px;
+  --gap-section: clamp(4rem, 10vh, 8rem);
+  --gap-content: clamp(1.5rem, 3vw, 3rem);
+
+  /* Fonts */
+  --font-display: 'Playfair Display', serif;
+  --font-quote: 'Cormorant Garamond', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Base Styles
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-void);
+  color: var(--color-parchment);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  background: transparent;
+  outline: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography & Titles
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-cream);
+  line-height: 1.2;
+}
+
+.text-amber { color: var(--color-amber); }
+.text-parchment { color: var(--color-parchment); }
+.italic-quote {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   4. Custom Cursor (Desktop Only)
+   -------------------------------------------------------------------------- */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  opacity: 0;
+  will-change: transform, width, height, opacity;
+}
+
+.cursor-dot {
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-amber);
+  opacity: 0.7;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-amber);
+  background-color: transparent;
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Touch devices hide cursor */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Navigation Bar
+   -------------------------------------------------------------------------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease, padding 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.navbar.scrolled {
+  padding: 1rem 5%;
+  background-color: rgba(13, 8, 5, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(196, 137, 42, 0.2);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.15em;
+  color: var(--color-amber);
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-parchment);
+  position: relative;
+  padding: 0.25rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-amber);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.nav-link:hover {
+  color: var(--color-amber);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Mobile Hamburger Menu */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  z-index: 10001;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--color-amber);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Mobile Overlay Menu */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0D0805;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 0.98;
+  pointer-events: all;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 600;
+  color: var(--color-parchment);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.mobile-nav-link:hover {
+  color: var(--color-amber);
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 2rem;
+  right: 5%;
+  color: var(--color-amber);
+  width: 32px;
+  height: 32px;
+}
+
+/* Hamburger active transformation */
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Page Transition Overlay
+   -------------------------------------------------------------------------- */
+#transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-void);
+  z-index: 100000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   7. Loading Screen (Homepage Overlay)
+   -------------------------------------------------------------------------- */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-void);
+  z-index: 100001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loader-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  letter-spacing: 0.15em;
+  color: var(--color-cream);
+  display: flex;
+}
+
+.loader-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* --------------------------------------------------------------------------
+   8. Global Footer
+   -------------------------------------------------------------------------- */
+.footer {
+  background-color: var(--footer-bg, var(--color-void));
+  padding: 5rem 5% 3rem 5%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   8b. Premium CTA Buttons
+   -------------------------------------------------------------------------- */
+.desc-cta-btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: 1.5px solid var(--color-amber);
+  border-radius: var(--radius-pill, 50px);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-amber);
+  background-color: transparent;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  margin-top: 1.5rem;
+}
+
+.desc-cta-btn .arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.desc-cta-btn:hover {
+  background-color: var(--color-amber);
+  color: var(--color-void);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(196, 137, 42, 0.25);
+}
+
+.desc-cta-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 0.15em;
+  color: var(--color-amber);
+}
+
+.footer-tagline {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--color-parchment);
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
+
+.footer-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-parchment);
+  opacity: 0.6;
+}
+
+.footer-info a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer-info a:hover {
+  color: var(--color-amber);
+}
+
+.footer-icon-svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  fill: none;
+  stroke: currentColor;
+}
+
+.footer-copy {
+  margin-top: 3.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-parchment);
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------------------------------------
+   9. Hero Animated Background Glows
+   -------------------------------------------------------------------------- */
+.hero-bg-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.7; /* Soft ambient visibility */
+}
+
+.glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.14;
+  will-change: transform;
+}
+
+.glow-1 {
+  width: clamp(300px, 45vw, 650px);
+  height: clamp(300px, 45vw, 650px);
+  background: radial-gradient(circle, #17240c 0%, rgba(23, 36, 12, 0) 70%);
+  top: -10%;
+  left: 10%;
+  animation: floatGlow1 22s infinite alternate ease-in-out;
+}
+
+.glow-2 {
+  width: clamp(250px, 40vw, 550px);
+  height: clamp(250px, 40vw, 550px);
+  background: radial-gradient(circle, #1c0f07 0%, rgba(28, 15, 7, 0) 70%);
+  bottom: -5%;
+  right: 10%;
+  animation: floatGlow2 26s infinite alternate ease-in-out;
+}
+
+@keyframes floatGlow1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 50px) scale(1.1); }
+  100% { transform: translate(-30px, -40px) scale(0.9); }
+}
+
+@keyframes floatGlow2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, -60px) scale(1.15); }
+  100% { transform: translate(40px, 30px) scale(0.95); }
+}
+
+/* --------------------------------------------------------------------------
+   10. Animation Helpers
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+
+/* --------------------------------------------------------------------------
+   10. Accessibility (Reduced Motion)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
